@@ -68,22 +68,24 @@ ExclusiveArch:    %{java_arches} noarch
 # Java
 ################################################################################
 
-# use Java 17 on Fedora 39 or older and RHEL 9 or older,
-# use Java 21 until  Fedora 42 and rhel 10,
-# use Java 25 for newer versions
+# Use Java 21 before Fedora 44, otherwise use Java 25.
+# Use Java 17 before RHEL 9, otherwise use Java 21.
+
+%global           fedora_java21_cutoff 44
+%global           rhel_java17_cutoff 9
 
 # maven-local is a subpackage of javapackages-tools
 
-%if 0%{?fedora} && 0%{?fedora} <= 39 || 0%{?rhel} && 0%{?rhel} <= 9
+%if 0%{?rhel} && 0%{?rhel} < %{rhel_java17_cutoff}
 
 %define java_devel java-17-openjdk-devel
 %define java_headless java-17-openjdk-headless
 %define java_home %{_jvmdir}/jre-17-openjdk
-%define maven_local maven-local-openjdk17
+%define maven_local maven-local
 
 %else
 
-%if 0%{?fedora} && 0%{?fedora} < 43 || 0%{?rhel}
+%if 0%{?fedora} && 0%{?fedora} < %{fedora_java21_cutoff} || 0%{?rhel}
 
 %define java_devel java-21-openjdk-devel
 %define java_headless java-21-openjdk-headless
