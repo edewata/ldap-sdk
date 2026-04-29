@@ -205,7 +205,12 @@ ln -sf %{name}/ldaptools.pom %{buildroot}%{_mavenpomdir}/JPP-ldaptools.pom
 ################################################################################
 
 ################################################################################
+# For example:
+# * Fri Aug 10 2018 Dogtag PKI Team <pki-team@redhat.com> 4.20.0-0
+# - Rebase to LDAP SDK 4.20
+#
+# To list all changes in <branch> since <tag>:
+# $ git log --pretty=oneline --abbrev-commit --no-decorate <tag>..<branch>
+
 %changelog
-* Fri Aug 10 2018 Dogtag PKI Team <pki-team@redhat.com> 4.20.0-0
-- To list changes in <branch> since <tag>:
-  $ git log --pretty=oneline --abbrev-commit --no-decorate <tag>..<branch>
+%autochangelog
